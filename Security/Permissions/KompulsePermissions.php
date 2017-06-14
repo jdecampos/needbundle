@@ -15,9 +15,9 @@ use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class NeedPermissions.
+ * Class KompulsePermissions.
  */
-class NeedPermissions extends AbstractPermissions
+class KompulsePermissions extends AbstractPermissions
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,9 @@ class NeedPermissions extends AbstractPermissions
     public function __construct($params)
     {
         parent::__construct($params);
+        $this->addStandardPermissions('contact_need', $includePublish = false);
         $this->addStandardPermissions('need', $includePublish = false);
+        $this->addStandardPermissions('triggers');
     }
 
     /**
@@ -35,7 +37,7 @@ class NeedPermissions extends AbstractPermissions
      */
     public function getName()
     {
-        return 'need';
+        return 'kompulse';
     }
 
     /**
@@ -46,6 +48,8 @@ class NeedPermissions extends AbstractPermissions
      */
     public function buildForm(FormBuilderInterface &$builder, array $options, array $data)
     {
-        $this->addStandardFormFields('need', 'need', $builder, $data, $includePublish = false);
+        $this->addStandardFormFields('kompulse', 'need', $builder, $data, $includePublish = false);
+        $this->addStandardFormFields('kompulse', 'contact_need', $builder, $data, $includePublish = false);
+        $this->addStandardFormFields('kompulse', 'triggers', $builder, $data);
     }
 }
