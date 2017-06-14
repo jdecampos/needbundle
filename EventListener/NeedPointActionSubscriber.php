@@ -14,6 +14,11 @@ namespace MauticPlugin\KompulseNeedBundle\EventListener;
 use Mautic\AssetBundle\AssetEvents;
 use Mautic\AssetBundle\Event\AssetLoadEvent;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
+use Mautic\EmailBundle\EmailEvents;
+use Mautic\EmailBundle\Event\EmailOpenEvent;
+use Mautic\EmailBundle\Event\EmailSendEvent;
+use Mautic\FormBundle\Event\SubmissionEvent;
+use Mautic\FormBundle\FormEvents;
 use Mautic\PageBundle\Event\PageHitEvent;
 use Mautic\PageBundle\PageEvents;
 use MauticPlugin\KompulseNeedBundle\Event\NeedPointBuilderEvent;
@@ -49,6 +54,9 @@ class NeedPointActionSubscriber extends CommonSubscriber
             KompulseNeedEvents::NEED_POINT_ON_BUILD => ['onNeedPointBuild', 0],
             AssetEvents::ASSET_ON_LOAD  => ['onAssetDownload', 0],
             PageEvents::PAGE_ON_HIT     => ['onPageHit', 0],
+            FormEvents::FORM_ON_SUBMIT  => ['onFormSubmit', 0],
+            EmailEvents::EMAIL_ON_OPEN    => ['onEmailOpen', 0],
+            EmailEvents::EMAIL_ON_SEND    => ['onEmailSend', 0],
         ];
     }
 
@@ -149,5 +157,41 @@ class NeedPointActionSubscriber extends CommonSubscriber
             // Mautic Tracking Pixel was hit
             $this->needPointModel->triggerAction('url.hit', $event->getHit());
         }
+    }
+
+    /**
+     * Trigger point actions for form submit.
+     *
+     * @param SubmissionEvent $event
+     */
+    public function onFormSubmit(SubmissionEvent $event)
+    {
+        $this->needPointModel->triggerAction('form.submit', $event->getSubmission());
+    }
+
+    /**
+     * Trigger point actions for email open.
+     *
+     * @param EmailOpenEvent $event
+     */
+    public function onEmailOpen(EmailOpenEvent $event)
+    {
+        $this->needPointModel->triggerAction('email.open', $event->getEmail());
+    }
+
+    /**
+     * Trigger point actions for email send.
+     *
+     * @param EmailSendEvent $event
+     */
+    public function onEmailSend(EmailSendEvent $event)
+    {
+        if ($leadArray = $event->getLead()) {
+            $lead = $this->em->getReference('MauticLeadBundle:Lead', $leadArray['id']);
+        } else {
+            return;
+        }
+
+        $this->needPointModel->triggerAction('email.send', $event->getEmail(), null, $lead);
     }
 }
