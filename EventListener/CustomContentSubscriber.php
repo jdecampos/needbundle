@@ -49,7 +49,13 @@ class CustomContentSubscriber extends CommonSubscriber
         $parameters = $event->getVars();
 
         if ($event->checkContext('MauticLeadBundle:Lead:lead.html.php', 'tabs')) {
-            $event->addTemplate('KompulseNeedBundle:ContactNeed:tab.html.php', []);
+            if (isset($parameters['lead'])) {
+                $lead = $parameters['lead'];
+                $contactNeeds = $this->em->getRepository('KompulseNeedBundle:ContactNeed')->findByLead($lead);
+                $event->addTemplate('KompulseNeedBundle:ContactNeed:tab.html.php', [
+                    'countContactNeeds' => count($contactNeeds),
+                ]);
+            }
         }
 
         if ($event->checkContext('MauticLeadBundle:Lead:lead.html.php', 'tabs.content')) {
@@ -62,9 +68,9 @@ class CustomContentSubscriber extends CommonSubscriber
                 $contactNeeds = $this->em->getRepository('KompulseNeedBundle:ContactNeed')->findByLead($lead);
 
                 $event->addTemplate('KompulseNeedBundle:ContactNeed:tab.content.html.php', [
-                    'contactNeeds' => $contactNeeds,
-                    'tmpl' => 'index',
-                    'permissions' => $permissions,
+                    'contactNeeds'      => $contactNeeds,
+                    'tmpl'              => 'index',
+                    'permissions'       => $permissions,
                 ]);
             }
         }
