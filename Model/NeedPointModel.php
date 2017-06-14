@@ -253,15 +253,15 @@ class NeedPointModel extends CommonFormModel
         $ipAddress       = $this->ipLookupHelper->getIpAddress();
 
         // temp hack for debug
-        $lead = $this->leadModel->getEntity(13);
-        /*        if (null === $lead) {
+        //$lead = $this->leadModel->getEntity(13);
+        if (null === $lead) {
             $lead = $this->leadModel->getCurrentLead();
 
             if (null === $lead || !$lead->getId()) {
                 return;
             }
         }
-        */
+
 
 
         //get available actions

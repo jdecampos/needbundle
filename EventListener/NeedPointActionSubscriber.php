@@ -14,6 +14,8 @@ namespace MauticPlugin\KompulseNeedBundle\EventListener;
 use Mautic\AssetBundle\AssetEvents;
 use Mautic\AssetBundle\Event\AssetLoadEvent;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
+use Mautic\PageBundle\Event\PageHitEvent;
+use Mautic\PageBundle\PageEvents;
 use MauticPlugin\KompulseNeedBundle\Event\NeedPointBuilderEvent;
 use MauticPlugin\KompulseNeedBundle\KompulseNeedEvents;
 use MauticPlugin\KompulseNeedBundle\Model\NeedPointModel;
@@ -46,6 +48,7 @@ class NeedPointActionSubscriber extends CommonSubscriber
         return [
             KompulseNeedEvents::NEED_POINT_ON_BUILD => ['onNeedPointBuild', 0],
             AssetEvents::ASSET_ON_LOAD  => ['onAssetDownload', 0],
+            PageEvents::PAGE_ON_HIT     => ['onPageHit', 0],
         ];
     }
 
@@ -129,6 +132,22 @@ class NeedPointActionSubscriber extends CommonSubscriber
 
         if ($asset !== null) {
             $this->needPointModel->triggerAction('asset.download', $asset);
+        }
+    }
+
+    /**
+     * Trigger point actions for page hits.
+     *
+     * @param Events\PageHitEvent $event
+     */
+    public function onPageHit(PageHitEvent $event)
+    {
+        if ($event->getPage()) {
+            // Mautic Landing Page was hit
+            $this->needPointModel->triggerAction('page.hit', $event->getHit());
+        } else {
+            // Mautic Tracking Pixel was hit
+            $this->needPointModel->triggerAction('url.hit', $event->getHit());
         }
     }
 }
