@@ -20,7 +20,7 @@ if ($contactNeed instanceof \MauticPlugin\KompulseNeedBundle\Entity\ContactNeed)
     $points = $contactNeeds['points'];
 }
 
-$icon = 'fa-file-text';
+$icon = 'fa-bullseye';
 
 ?>
 <li id="ContactNeed<?php echo $id; ?>">
@@ -47,7 +47,7 @@ $icon = 'fa-file-text';
                      <?php endif; ?>
                 </div>
                 <?php echo $need; ?>
-                <div class="mt-15 text-muted"><i class="fa fa-clock-o fa-fw"></i><span class="small"> <i class="fa fa-user fa-fw"></i><span class="small"><?php echo $points; ?></span></div>
+                <div class="mt-15 text-muted"><i class="fa fa-clock-o fa-fw"></i><span class="small"> <i class="fa fa-bullseye fa-fw"></i><span class="small"><?php echo $points; ?></span></div>
             </div>
         </div>
     </div>

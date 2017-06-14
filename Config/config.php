@@ -64,7 +64,7 @@ return [
         'main' => [
             'kompulse.need_points.menu.root' => [
                 'id'        => 'kompulse_need_points_root',
-                'iconClass' => 'fa-calculator',
+                'iconClass' => 'fa-bullseye',
                 'access'    => ['point:points:view', 'point:triggers:view'],
                 'priority'  => 30,
                 'children'  => [
@@ -82,7 +82,7 @@ return [
         'admin' => [
             'kompulse.admin_menu.index' => [
                 'route'     => 'plugin_kompulse_index',
-                'iconClass' => 'fa-folder',
+                'iconClass' => 'fa-bullseye',
                 'id'        => 'plugin_kompulse_need_index',
             ],
         ],
