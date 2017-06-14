@@ -367,128 +367,128 @@ class NeedPointActionController extends FormController
     //     return $this->newAction($entity);
     // }
 
-    // /**
-    //  * Deletes the entity.
-    //  *
-    //  * @param int $objectId
-    //  *
-    //  * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
-    //  */
-    // public function deleteAction($objectId)
-    // {
-    //     $page      = $this->get('session')->get('mautic.point.page', 1);
-    //     $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $page]);
-    //     $flashes   = [];
+    /**
+     * Deletes the entity.
+     *
+     * @param int $objectId
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($objectId)
+    {
+        $page      = $this->get('session')->get('mautic.point.page', 1);
+        $returnUrl = $this->generateUrl('kompulse_point_action_index', ['page' => $page]);
+        $flashes   = [];
 
-    //     $postActionVars = [
-    //         'returnUrl'       => $returnUrl,
-    //         'viewParameters'  => ['page' => $page],
-    //         'contentTemplate' => 'MauticPointBundle:Point:index',
-    //         'passthroughVars' => [
-    //             'activeLink'    => '#mautic_point_index',
-    //             'mauticContent' => 'point',
-    //         ],
-    //     ];
+        $postActionVars = [
+            'returnUrl'       => $returnUrl,
+            'viewParameters'  => ['page' => $page],
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:index',
+            'passthroughVars' => [
+                'activeLink'    => '#kompulse_point_action_index',
+                'mauticContent' => 'need_point',
+            ],
+        ];
 
-    //     if ($this->request->getMethod() == 'POST') {
-    //         $model  = $this->getModel('point');
-    //         $entity = $model->getEntity($objectId);
+        if ($this->request->getMethod() == 'POST') {
+            $model  = $this->getModel('kompulse.need_point');
+            $entity = $model->getEntity($objectId);
 
-    //         if ($entity === null) {
-    //             $flashes[] = [
-    //                 'type'    => 'error',
-    //                 'msg'     => 'mautic.point.error.notfound',
-    //                 'msgVars' => ['%id%' => $objectId],
-    //             ];
-    //         } elseif (!$this->get('mautic.security')->isGranted('point:points:delete')) {
-    //             return $this->accessDenied();
-    //         } elseif ($model->isLocked($entity)) {
-    //             return $this->isLocked($postActionVars, $entity, 'point');
-    //         }
+            if ($entity === null) {
+                $flashes[] = [
+                    'type'    => 'error',
+                    'msg'     => 'mautic.point.error.notfound',
+                    'msgVars' => ['%id%' => $objectId],
+                ];
+            } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_points:delete')) {
+                return $this->accessDenied();
+            } elseif ($model->isLocked($entity)) {
+                return $this->isLocked($postActionVars, $entity, 'kompulse.need_point');
+            }
 
-    //         $model->deleteEntity($entity);
+            $model->deleteEntity($entity);
 
-    //         $identifier = $this->get('translator')->trans($entity->getName());
-    //         $flashes[]  = [
-    //             'type'    => 'notice',
-    //             'msg'     => 'mautic.core.notice.deleted',
-    //             'msgVars' => [
-    //                 '%name%' => $identifier,
-    //                 '%id%'   => $objectId,
-    //             ],
-    //         ];
-    //     } //else don't do anything
+            $identifier = $this->get('translator')->trans($entity->getName());
+            $flashes[]  = [
+                'type'    => 'notice',
+                'msg'     => 'mautic.core.notice.deleted',
+                'msgVars' => [
+                    '%name%' => $identifier,
+                    '%id%'   => $objectId,
+                ],
+            ];
+        } //else don't do anything
 
-    //     return $this->postActionRedirect(
-    //         array_merge($postActionVars, [
-    //             'flashes' => $flashes,
-    //         ])
-    //     );
-    // }
+        return $this->postActionRedirect(
+            array_merge($postActionVars, [
+                'flashes' => $flashes,
+            ])
+        );
+    }
 
-    // /**
-    //  * Deletes a group of entities.
-    //  *
-    //  * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
-    //  */
-    // public function batchDeleteAction()
-    // {
-    //     $page      = $this->get('session')->get('mautic.point.page', 1);
-    //     $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $page]);
-    //     $flashes   = [];
+    /**
+     * Deletes a group of entities.
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function batchDeleteAction()
+    {
+        $page      = $this->get('session')->get('mautic.point.page', 1);
+        $returnUrl = $this->generateUrl('kompulse_point_action_index', ['page' => $page]);
+        $flashes   = [];
 
-    //     $postActionVars = [
-    //         'returnUrl'       => $returnUrl,
-    //         'viewParameters'  => ['page' => $page],
-    //         'contentTemplate' => 'MauticPointBundle:Point:index',
-    //         'passthroughVars' => [
-    //             'activeLink'    => '#mautic_point_index',
-    //             'mauticContent' => 'point',
-    //         ],
-    //     ];
+        $postActionVars = [
+            'returnUrl'       => $returnUrl,
+            'viewParameters'  => ['page' => $page],
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:index',
+            'passthroughVars' => [
+                'activeLink'    => '#kompulse_point_action_index',
+                'mauticContent' => 'need_point',
+            ],
+        ];
 
-    //     if ($this->request->getMethod() == 'POST') {
-    //         $model     = $this->getModel('point');
-    //         $ids       = json_decode($this->request->query->get('ids', '{}'));
-    //         $deleteIds = [];
+        if ($this->request->getMethod() == 'POST') {
+            $model     = $this->getModel('kompulse.need_point');
+            $ids       = json_decode($this->request->query->get('ids', '{}'));
+            $deleteIds = [];
 
-    //         // Loop over the IDs to perform access checks pre-delete
-    //         foreach ($ids as $objectId) {
-    //             $entity = $model->getEntity($objectId);
+            // Loop over the IDs to perform access checks pre-delete
+            foreach ($ids as $objectId) {
+                $entity = $model->getEntity($objectId);
 
-    //             if ($entity === null) {
-    //                 $flashes[] = [
-    //                     'type'    => 'error',
-    //                     'msg'     => 'mautic.point.error.notfound',
-    //                     'msgVars' => ['%id%' => $objectId],
-    //                 ];
-    //             } elseif (!$this->get('mautic.security')->isGranted('point:points:delete')) {
-    //                 $flashes[] = $this->accessDenied(true);
-    //             } elseif ($model->isLocked($entity)) {
-    //                 $flashes[] = $this->isLocked($postActionVars, $entity, 'point', true);
-    //             } else {
-    //                 $deleteIds[] = $objectId;
-    //             }
-    //         }
+                if ($entity === null) {
+                    $flashes[] = [
+                        'type'    => 'error',
+                        'msg'     => 'mautic.point.error.notfound',
+                        'msgVars' => ['%id%' => $objectId],
+                    ];
+                } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_points:delete')) {
+                    $flashes[] = $this->accessDenied(true);
+                } elseif ($model->isLocked($entity)) {
+                    $flashes[] = $this->isLocked($postActionVars, $entity, 'kompulse.need_point', true);
+                } else {
+                    $deleteIds[] = $objectId;
+                }
+            }
 
-    //         // Delete everything we are able to
-    //         if (!empty($deleteIds)) {
-    //             $entities = $model->deleteEntities($deleteIds);
+            // Delete everything we are able to
+            if (!empty($deleteIds)) {
+                $entities = $model->deleteEntities($deleteIds);
 
-    //             $flashes[] = [
-    //                 'type'    => 'notice',
-    //                 'msg'     => 'mautic.point.notice.batch_deleted',
-    //                 'msgVars' => [
-    //                     '%count%' => count($entities),
-    //                 ],
-    //             ];
-    //         }
-    //     } //else don't do anything
+                $flashes[] = [
+                    'type'    => 'notice',
+                    'msg'     => 'mautic.point.notice.batch_deleted',
+                    'msgVars' => [
+                        '%count%' => count($entities),
+                    ],
+                ];
+            }
+        } //else don't do anything
 
-    //     return $this->postActionRedirect(
-    //         array_merge($postActionVars, [
-    //             'flashes' => $flashes,
-    //         ])
-    //     );
-    // }
+        return $this->postActionRedirect(
+            array_merge($postActionVars, [
+                'flashes' => $flashes,
+            ])
+        );
+    }
 }
