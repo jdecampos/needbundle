@@ -343,29 +343,29 @@ class NeedPointActionController extends FormController
         ]);
     }
 
-    // /**
-    //  * Clone an entity.
-    //  *
-    //  * @param int $objectId
-    //  *
-    //  * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|Response
-    //  */
-    // public function cloneAction($objectId)
-    // {
-    //     $model  = $this->getModel('point');
-    //     $entity = $model->getEntity($objectId);
+    /**
+     * Clone an entity.
+     *
+     * @param int $objectId
+     *
+     * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function cloneAction($objectId)
+    {
+        $model  = $this->getModel('kompulse.need_point');
+        $entity = $model->getEntity($objectId);
 
-    //     if ($entity != null) {
-    //         if (!$this->get('mautic.security')->isGranted('point:points:create')) {
-    //             return $this->accessDenied();
-    //         }
+        if ($entity != null) {
+            if (!$this->get('mautic.security')->isGranted('kompulse:need_points:create')) {
+                return $this->accessDenied();
+            }
 
-    //         $entity = clone $entity;
-    //         $entity->setIsPublished(false);
-    //     }
+            $entity = clone $entity;
+            $entity->setIsPublished(false);
+        }
 
-    //     return $this->newAction($entity);
-    // }
+        return $this->newAction($entity);
+    }
 
     /**
      * Deletes the entity.
