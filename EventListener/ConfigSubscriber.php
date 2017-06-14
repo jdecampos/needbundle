@@ -1,14 +1,5 @@
 <?php
 
-/*
- * @copyright   2017 Kgtech. All rights reserved
- * @author      Kgtech
- *
- * @link        https://www.kgtech.fi
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 namespace MauticPlugin\KompulseNeedBundle\EventListener;
 
 use Mautic\ConfigBundle\ConfigEvents;
