@@ -9,7 +9,7 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 if ($tmpl == 'index') {
-    $view->extend('KompulseNeedBundle:NeedPoint:index.html.php');
+    $view->extend('KompulseNeedBundle:NeedPointAction:index.html.php');
 }
 ?>
 
@@ -24,7 +24,7 @@ if ($tmpl == 'index') {
                     [
                         'checkall'        => 'true',
                         'target'          => '#pointTable',
-                        'routeBase'       => 'point',
+                        'actionRoute'     => 'kompulse_point_action_action',
                         'templateButtons' => [
                             'delete' => $permissions['kompulse:need_points:delete'],
                         ],
@@ -90,7 +90,7 @@ if ($tmpl == 'index') {
                                     'clone'  => $permissions['kompulse:need_points:create'],
                                     'delete' => $permissions['kompulse:need_points:delete'],
                                 ],
-                                'routeBase' => 'point',
+                                'actionRoute' => 'kompulse_point_action_action',
                             ]
                         );
                         ?>

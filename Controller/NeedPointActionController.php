@@ -78,7 +78,7 @@ class NeedPointActionController extends FormController
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'KompulseNeedBundle:NeedPoint:index',
+                'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:index',
                 'passthroughVars' => [
                     'activeLink'    => '#kompulse_point_action_index',
                     'mauticContent' => 'need_point',
@@ -104,7 +104,7 @@ class NeedPointActionController extends FormController
                 'permissions' => $permissions,
                 'tmpl'        => $tmpl,
             ],
-            'contentTemplate' => 'KompulseNeedBundle:NeedPoint:list.html.php',
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:list.html.php',
             'passthroughVars' => [
                 'activeLink'    => '#kompulse_point_action_index',
                 'mauticContent' => 'need_point',
@@ -165,7 +165,7 @@ class NeedPointActionController extends FormController
 
                     if ($form->get('buttons')->get('save')->isClicked()) {
                         $returnUrl = $this->generateUrl('kompulse_point_action_index', $viewParameters);
-                        $template  = 'KompulseNeedBundle:NeedPoint:index';
+                        $template  = 'KompulseNeedBundle:NeedPointAction:index';
                     } else {
                         //return edit view so that all the session stuff is loaded
                         return $this->editAction($entity->getId(), true);
@@ -173,7 +173,7 @@ class NeedPointActionController extends FormController
                 }
             } else {
                 $returnUrl = $this->generateUrl('kompulse_point_action_index', $viewParameters);
-                $template  = 'KompulseNeedBundle:NeedPoint:index';
+                $template  = 'KompulseNeedBundle:NeedPointAction:index';
             }
 
             if ($cancelled || ($valid && $form->get('buttons')->get('save')->isClicked())) {
@@ -198,10 +198,10 @@ class NeedPointActionController extends FormController
             'viewParameters' => [
                 'tmpl'    => $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index',
                 'entity'  => $entity,
-                'form'    => $this->setFormTheme($form, 'KompulseNeedBundle:NeedPoint:form.html.php', $themes),
+                'form'    => $this->setFormTheme($form, 'KompulseNeedBundle:NeedPointAction:form.html.php', $themes),
                 'actions' => $actions['actions'],
             ],
-            'contentTemplate' => 'KompulseNeedBundle:NeedPoint:form.html.php',
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:form.html.php',
             'passthroughVars' => [
                 'activeLink'    => '#kompulse_point_action_index',
                 'mauticContent' => 'need_point',
@@ -238,7 +238,7 @@ class NeedPointActionController extends FormController
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParameters,
-            'contentTemplate' => 'KompulseNeedBundle:NeedPoint:index',
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:index',
             'passthroughVars' => [
                 'activeLink'    => '#kompulse_point_action_index',
                 'mauticContent' => 'need_point',
@@ -293,7 +293,7 @@ class NeedPointActionController extends FormController
 
                     if ($form->get('buttons')->get('save')->isClicked()) {
                         $returnUrl = $this->generateUrl('kompulse_point_action_index', $viewParameters);
-                        $template  = 'KompulseNeedBundle:NeedPoint:index';
+                        $template  = 'KompulseNeedBundle:NeedPointAction:index';
                     }
                 }
             } else {
@@ -301,7 +301,7 @@ class NeedPointActionController extends FormController
                 $model->unlockEntity($entity);
 
                 $returnUrl = $this->generateUrl('kompulse_point_action_index', $viewParameters);
-                $template  = 'KompulseNeedBundle:NeedPoint:index';
+                $template  = 'KompulseNeedBundle:NeedPointAction:index';
             }
 
             if ($cancelled || ($valid && $form->get('buttons')->get('save')->isClicked())) {
@@ -327,10 +327,10 @@ class NeedPointActionController extends FormController
             'viewParameters' => [
                 'tmpl'    => $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index',
                 'entity'  => $entity,
-                'form'    => $this->setFormTheme($form, 'KompulseNeedBundle:NeedPoint:form.html.php', $themes),
+                'form'    => $this->setFormTheme($form, 'KompulseNeedBundle:NeedPointAction:form.html.php', $themes),
                 'actions' => $actions['actions'],
             ],
-            'contentTemplate' => 'KompulseNeedBundle:NeedPoint:form.html.php',
+            'contentTemplate' => 'KompulseNeedBundle:NeedPointAction:form.html.php',
             'passthroughVars' => [
                 'activeLink'    => '#kompulse_point_action_index',
                 'mauticContent' => 'need_point',
