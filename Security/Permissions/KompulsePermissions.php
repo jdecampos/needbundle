@@ -28,6 +28,8 @@ class KompulsePermissions extends AbstractPermissions
         $this->addStandardPermissions('contact_need', $includePublish = false);
         $this->addStandardPermissions('need', $includePublish = false);
         $this->addStandardPermissions('triggers');
+        $this->addStandardPermissions('need_point');
+
     }
 
     /**
@@ -51,5 +53,7 @@ class KompulsePermissions extends AbstractPermissions
         $this->addStandardFormFields('kompulse', 'need', $builder, $data, $includePublish = false);
         $this->addStandardFormFields('kompulse', 'contact_need', $builder, $data, $includePublish = false);
         $this->addStandardFormFields('kompulse', 'triggers', $builder, $data);
+        $this->addStandardFormFields('kompulse', 'need_point', $builder, $data);
+
     }
 }

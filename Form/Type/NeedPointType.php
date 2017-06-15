@@ -72,7 +72,7 @@ class NeedPointType extends AbstractType
             'label_attr'  => ['class' => 'control-label'],
             'attr'        => [
                 'class'    => 'form-control',
-                'onchange' => 'Mautic.getPointActionPropertiesForm(this.value);',
+                'onchange' => 'Mautic.getNeedPointActionPropertiesForm(this.value);',
             ],
         ]);
 

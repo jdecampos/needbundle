@@ -30,14 +30,14 @@ class NeedPointActionController extends FormController
     {
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted([
-            'kompulse:need_points:view',
-            'kompulse:need_points:create',
-            'kompulse:need_points:edit',
-            'kompulse:need_points:delete',
-            'kompulse:need_points:publish',
+            'kompulse:need_point:view',
+            'kompulse:need_point:create',
+            'kompulse:need_point:edit',
+            'kompulse:need_point:delete',
+            'kompulse:need_point:publish',
         ], 'RETURN_ARRAY');
 
-        if (!$permissions['kompulse:need_points:view']) {
+        if (!$permissions['kompulse:need_point:view']) {
             return $this->accessDenied();
         }
 
@@ -129,14 +129,14 @@ class NeedPointActionController extends FormController
             $entity = $model->getEntity();
         }
 
-        if (!$this->get('mautic.security')->isGranted('kompulse:need_points:create')) {
+        if (!$this->get('mautic.security')->isGranted('kompulse:need_point:create')) {
             return $this->accessDenied();
         }
 
         //set the page we came from
         $page = $this->get('session')->get('mautic.point.page', 1);
 
-        $actionType = ($this->request->getMethod() == 'POST') ? $this->request->request->get('point[type]', '', true) : '';
+        $actionType = ($this->request->getMethod() == 'POST') ? $this->request->request->get('need_point[type]', '', true) : '';
 
         $action  = $this->generateUrl('kompulse_point_action_action', ['objectAction' => 'new']);
         $actions = $model->getPointActions();
@@ -258,7 +258,7 @@ class NeedPointActionController extends FormController
                     ],
                 ])
             );
-        } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_points:edit')) {
+        } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_point:edit')) {
             return $this->accessDenied();
         } elseif ($model->isLocked($entity)) {
             //deny access if the entity is locked
@@ -356,7 +356,7 @@ class NeedPointActionController extends FormController
         $entity = $model->getEntity($objectId);
 
         if ($entity != null) {
-            if (!$this->get('mautic.security')->isGranted('kompulse:need_points:create')) {
+            if (!$this->get('mautic.security')->isGranted('kompulse:need_point:create')) {
                 return $this->accessDenied();
             }
 
@@ -400,7 +400,7 @@ class NeedPointActionController extends FormController
                     'msg'     => 'mautic.point.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
-            } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_points:delete')) {
+            } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_point:delete')) {
                 return $this->accessDenied();
             } elseif ($model->isLocked($entity)) {
                 return $this->isLocked($postActionVars, $entity, 'kompulse.need_point');
@@ -462,7 +462,7 @@ class NeedPointActionController extends FormController
                         'msg'     => 'mautic.point.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
-                } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_points:delete')) {
+                } elseif (!$this->get('mautic.security')->isGranted('kompulse:need_point:delete')) {
                     $flashes[] = $this->accessDenied(true);
                 } elseif ($model->isLocked($entity)) {
                     $flashes[] = $this->isLocked($postActionVars, $entity, 'kompulse.need_point', true);

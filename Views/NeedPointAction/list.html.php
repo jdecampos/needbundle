@@ -26,7 +26,7 @@ if ($tmpl == 'index') {
                         'target'          => '#pointTable',
                         'actionRoute'     => 'kompulse_point_action_action',
                         'templateButtons' => [
-                            'delete' => $permissions['kompulse:need_points:delete'],
+                            'delete' => $permissions['kompulse:need_point:delete'],
                         ],
                     ]
                 );
@@ -86,9 +86,9 @@ if ($tmpl == 'index') {
                             [
                                 'item'            => $item,
                                 'templateButtons' => [
-                                    'edit'   => $permissions['kompulse:need_points:edit'],
-                                    'clone'  => $permissions['kompulse:need_points:create'],
-                                    'delete' => $permissions['kompulse:need_points:delete'],
+                                    'edit'   => $permissions['kompulse:need_point:edit'],
+                                    'clone'  => $permissions['kompulse:need_point:create'],
+                                    'delete' => $permissions['kompulse:need_point:delete'],
                                 ],
                                 'actionRoute' => 'kompulse_point_action_action',
                             ]

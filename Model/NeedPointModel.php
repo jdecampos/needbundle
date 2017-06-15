@@ -117,7 +117,7 @@ class NeedPointModel extends CommonFormModel
      */
     public function getPermissionBase()
     {
-        return 'kompulse:need_points';
+        return 'kompulse:need_point';
     }
 
     /**
@@ -358,33 +358,33 @@ class NeedPointModel extends CommonFormModel
         }
     }
 
-    /**
-     * Get line chart data of points.
-     *
-     * @param char      $unit          {@link php.net/manual/en/function.date.php#refsect1-function.date-parameters}
-     * @param \DateTime $dateFrom
-     * @param \DateTime $dateTo
-     * @param string    $dateFormat
-     * @param array     $filter
-     * @param bool      $canViewOthers
-     *
-     * @return array
-     */
-    public function getPointLineChartData($unit, \DateTime $dateFrom, \DateTime $dateTo, $dateFormat = null, $filter = [], $canViewOthers = true)
-    {
-        $chart = new LineChart($unit, $dateFrom, $dateTo, $dateFormat);
-        $query = new ChartQuery($this->em->getConnection(), $dateFrom, $dateTo);
-        $q     = $query->prepareTimeDataQuery('lead_points_change_log', 'date_added', $filter);
+    // /**
+    //  * Get line chart data of points.
+    //  *
+    //  * @param char      $unit          {@link php.net/manual/en/function.date.php#refsect1-function.date-parameters}
+    //  * @param \DateTime $dateFrom
+    //  * @param \DateTime $dateTo
+    //  * @param string    $dateFormat
+    //  * @param array     $filter
+    //  * @param bool      $canViewOthers
+    //  *
+    //  * @return array
+    //  */
+    // public function getPointLineChartData($unit, \DateTime $dateFrom, \DateTime $dateTo, $dateFormat = null, $filter = [], $canViewOthers = true)
+    // {
+    //     $chart = new LineChart($unit, $dateFrom, $dateTo, $dateFormat);
+    //     $query = new ChartQuery($this->em->getConnection(), $dateFrom, $dateTo);
+    //     $q     = $query->prepareTimeDataQuery('lead_points_change_log', 'date_added', $filter);
 
-        if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
-                ->andWhere('l.owner_id = :userId')
-                ->setParameter('userId', $this->userHelper->getUser()->getId());
-        }
+    //     if (!$canViewOthers) {
+    //         $q->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+    //             ->andWhere('l.owner_id = :userId')
+    //             ->setParameter('userId', $this->userHelper->getUser()->getId());
+    //     }
 
-        $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.point.changes'), $data);
+    //     $data = $query->loadAndBuildTimeData($q);
+    //     $chart->setDataset($this->translator->trans('mautic.point.changes'), $data);
 
-        return $chart->render();
-    }
+    //     return $chart->render();
+    // }
 }

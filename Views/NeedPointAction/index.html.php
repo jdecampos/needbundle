@@ -18,7 +18,7 @@ $view['slots']->set(
         'MauticCoreBundle:Helper:page_actions.html.php',
         [
             'templateButtons' => [
-                'new' => $permissions['kompulse:need_points:create'],
+                'new' => $permissions['kompulse:need_point:create'],
             ],
             'actionRoute' => 'kompulse_point_action_action',
         ]
