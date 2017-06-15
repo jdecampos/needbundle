@@ -135,6 +135,9 @@ return [
                 'class'  => 'MauticPlugin\KompulseNeedBundle\EventListener\NeedPointActionSubscriber',
                 'arguments' => ['mautic.kompulse.model.need_point']
             ],
+            'kompulse.formsubmitaction.subscriber' => [
+                'class'     => 'MauticPlugin\KompulseNeedBundle\EventListener\FormSubscriber',
+            ]
         ],
         'forms' => [
             'mautic.kompulse.config' => [
@@ -183,6 +186,11 @@ return [
                 'class'     => 'MauticPlugin\KompulseNeedBundle\Form\Type\TriggerType',
                 'arguments' => [ 'mautic.factory', 'mautic.kompulse.model.need'],
                 'alias'     => 'kompulsetrigger',
+            ],
+            'kompulse_need_submitaction_contact_need' => [
+                'class' => 'MauticPlugin\KompulseNeedBundle\Form\Type\FormSubmitActionContactNeedType',
+                'alias' => 'kompulse_need_submitaction_contact_need',
+                'arguments' => [ 'mautic.kompulse.model.need'],
             ],
         ],
         'models' => [
